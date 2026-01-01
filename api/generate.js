@@ -49,7 +49,7 @@ ${Object.entries(options || {})
 Add subtle watermark text: "VOLANTCUSTOM.BE"
 `;
 
-  const result = await replicate.run(
+const result = await replicate.run(
   "google/imagen-3",
   {
     input: {
