@@ -68,3 +68,6 @@ Add subtle watermark "VOLANTCUSTOM.BE".
     });
   }
 }
+export const config = {
+  maxDuration: 60
+};
