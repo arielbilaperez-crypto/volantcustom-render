@@ -1,4 +1,4 @@
-import OpenAI from "openai";
+import Replicate from "replicate";
 
 export const config = {
   api: {
@@ -6,8 +6,11 @@ export const config = {
   },
 };
 
+const replicate = new Replicate({
+  auth: process.env.REPLICATE_API_TOKEN,
+});
+
 export default async function handler(req, res) {
-  // CORS
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -21,53 +24,46 @@ export default async function handler(req, res) {
   }
 
   try {
-    if (!process.env.OPENAI_API_KEY) {
-      throw new Error("OPENAI_API_KEY missing");
-    }
-
     const { options } = req.body;
 
-    console.log("OPTIONS REÇUES:", options);
+    console.log("OPTIONS:", options);
 
     const prompt = `
 Ultra realistic studio photo of a custom steering wheel.
 
-Car compatibility:
-BMW F series, BMW G series, VW Golf 8.
+Compatible with BMW F series, BMW G series and VW Golf 8.
+High-end automotive photography.
+Studio lighting, clean white background.
 
-Configuration:
-${Object.entries(options || {})
-  .map(([k, v]) => `- ${k}: ${v}`)
+Customization:
+${Object.entries(options)
+  .map(([key, value]) => `- ${key}: ${value}`)
   .join("\n")}
 
-Clean white background.
-Soft studio lighting.
-Photorealistic render.
-Add subtle watermark "VOLANTCUSTOM.BE".
+Add a subtle watermark "VOLANTCUSTOM.BE".
 `;
 
-    const openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY,
-    });
-
-    const result = await openai.images.generate({
-      model: "gpt-image-1",
-      prompt,
-      size: "1024x1024",
-    });
+    const output = await replicate.run(
+      "stability-ai/sdxl",
+      {
+        input: {
+          prompt,
+          width: 1024,
+          height: 1024,
+          num_outputs: 1
+        }
+      }
+    );
 
     return res.status(200).json({
-      image: result.data[0].url,
+      image: output[0],
     });
 
   } catch (error) {
-    console.error("🔥 IMAGE GENERATION ERROR:", error);
+    console.error("REPLICATE ERROR:", error);
     return res.status(500).json({
       error: "Image generation failed",
-      details: error.message,
+      details: error.message
     });
   }
 }
-export const config = {
-  maxDuration: 60
-};
