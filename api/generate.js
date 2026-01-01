@@ -61,7 +61,7 @@ Add subtle watermark text: "VOLANTCUSTOM.BE"
     );
 
     return res.status(200).json({
-      image: output[0].url
+      image: output[0]
     });
 
   } catch (error) {
