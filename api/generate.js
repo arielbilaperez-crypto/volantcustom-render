@@ -26,21 +26,19 @@ export default async function handler(req, res) {
   try {
     const { options } = req.body;
 
-    console.log("OPTIONS:", options);
-
     const prompt = `
-Ultra realistic studio photo of a custom steering wheel.
-
-Compatible with BMW F series, BMW G series and VW Golf 8.
+Ultra realistic studio photo of a custom car steering wheel.
+Compatible with BMW F-series, BMW G-series, VW Golf 8.
 High-end automotive photography.
-Studio lighting, clean white background.
+Clean white background.
+Professional lighting.
 
-Customization:
-${Object.entries(options)
-  .map(([key, value]) => `- ${key}: ${value}`)
+Custom configuration:
+${Object.entries(options || {})
+  .map(([k, v]) => `- ${k}: ${v}`)
   .join("\n")}
 
-Add a subtle watermark "VOLANTCUSTOM.BE".
+Add a subtle watermark text "VOLANTCUSTOM.BE".
 `;
 
     const output = await replicate.run(
@@ -50,13 +48,16 @@ Add a subtle watermark "VOLANTCUSTOM.BE".
           prompt,
           width: 1024,
           height: 1024,
-          num_outputs: 1
+          num_outputs: 1,
+          scheduler: "K_EULER",
+          num_inference_steps: 35,
+          guidance_scale: 7.5
         }
       }
     );
 
     return res.status(200).json({
-      image: output[0],
+      image: output[0]
     });
 
   } catch (error) {
