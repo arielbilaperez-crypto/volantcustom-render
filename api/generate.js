@@ -28,30 +28,27 @@ export default async function handler(req, res) {
 
     const prompt = `
 Ultra realistic studio photo of a custom car steering wheel.
-Compatible with BMW F-series, BMW G-series, VW Golf 8.
+Compatible with BMW F series, BMW G series, VW Golf 8.
 High-end automotive photography.
 Clean white background.
-Professional lighting.
-
 Custom configuration:
 ${Object.entries(options || {})
   .map(([k, v]) => `- ${k}: ${v}`)
   .join("\n")}
 
-Add a subtle watermark text "VOLANTCUSTOM.BE".
+Add subtle watermark text "VOLANTCUSTOM.BE".
 `;
 
     const output = await replicate.run(
-      "stability-ai/sdxl",
+      "stability-ai/sdxl:7762fdc6f8b53f1d0d0f9a3f9d92c6b6a8c5c4a89b02c4f83a97e2e16d1b2c66",
       {
         input: {
           prompt,
           width: 1024,
           height: 1024,
           num_outputs: 1,
-          scheduler: "K_EULER",
-          num_inference_steps: 35,
-          guidance_scale: 7.5
+          guidance_scale: 7.5,
+          num_inference_steps: 30
         }
       }
     );
@@ -61,7 +58,7 @@ Add a subtle watermark text "VOLANTCUSTOM.BE".
     });
 
   } catch (error) {
-    console.error("REPLICATE ERROR:", error);
+    console.error("❌ REPLICATE ERROR:", error);
     return res.status(500).json({
       error: "Image generation failed",
       details: error.message
