@@ -6,17 +6,12 @@ export const config = {
   },
 };
 
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-
 export default async function handler(req, res) {
-  // 🔥 HEADERS CORS OBLIGATOIRES
+  // CORS
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  // 🔥 Réponse immédiate au preflight
   if (req.method === "OPTIONS") {
     return res.status(200).end();
   }
@@ -26,39 +21,50 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { product, options } = req.body;
+    if (!process.env.OPENAI_API_KEY) {
+      throw new Error("OPENAI_API_KEY missing");
+    }
 
-    console.log("OPTIONS REÇUES :", options);
+    const { options } = req.body;
+
+    console.log("OPTIONS REÇUES:", options);
 
     const prompt = `
-Ultra realistic studio photo of a custom car steering wheel.
+Ultra realistic studio photo of a custom steering wheel.
 
-Compatible with BMW F Series, BMW G Series and VW Golf 8.
-High quality professional studio lighting.
-Clean white background.
+Car compatibility:
+BMW F series, BMW G series, VW Golf 8.
 
-Customization details:
+Configuration:
 ${Object.entries(options || {})
-  .map(([key, val]) => `- ${key}: ${val}`)
+  .map(([k, v]) => `- ${k}: ${v}`)
   .join("\n")}
 
-Add a subtle watermark text "VOLANTCUSTOM.BE" at the bottom.
-No hands. No car interior. Only the steering wheel.
+Clean white background.
+Soft studio lighting.
+Photorealistic render.
+Add subtle watermark "VOLANTCUSTOM.BE".
 `;
 
-    const image = await openai.images.generate({
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+
+    const result = await openai.images.generate({
       model: "gpt-image-1",
       prompt,
       size: "1024x1024",
-      quality: "high"
     });
 
     return res.status(200).json({
-      image: image.data[0].url
+      image: result.data[0].url,
     });
 
-  } catch (err) {
-    console.error("❌ IMAGE GENERATION ERROR:", err);
-    return res.status(500).json({ error: "Image generation failed" });
+  } catch (error) {
+    console.error("🔥 IMAGE GENERATION ERROR:", error);
+    return res.status(500).json({
+      error: "Image generation failed",
+      details: error.message,
+    });
   }
 }
