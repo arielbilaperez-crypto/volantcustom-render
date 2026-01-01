@@ -15,53 +15,59 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
-
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed" });
-  }
+  if (req.method === "OPTIONS") return res.status(200).end();
+  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
 
   try {
     const { options } = req.body;
 
     const prompt = `
-Ultra realistic studio photo of a custom car steering wheel.
-Compatible with BMW F series, BMW G series, VW Golf 8.
+Ultra realistic studio photo of a custom steering wheel.
+BMW / VW compatible.
 High-end automotive photography.
 Clean white background.
-Custom configuration:
+
+Customization:
 ${Object.entries(options || {})
   .map(([k, v]) => `- ${k}: ${v}`)
   .join("\n")}
 
-Add subtle watermark text "VOLANTCUSTOM.BE".
+Add a subtle watermark: VOLANTCUSTOM.BE
 `;
 
-    const output = await replicate.run(
-      "stability-ai/sdxl:7762fdc6f8b53f1d0d0f9a3f9d92c6b6a8c5c4a89b02c4f83a97e2e16d1b2c66",
-      {
-        input: {
-          prompt,
-          width: 1024,
-          height: 1024,
-          num_outputs: 1,
-          guidance_scale: 7.5,
-          num_inference_steps: 30
-        }
+    // 🔥 OFFICIAL SDXL MODEL (WORKING)
+    const prediction = await replicate.predictions.create({
+      version: "stability-ai/sdxl",
+      input: {
+        prompt,
+        width: 1024,
+        height: 1024,
+        num_outputs: 1,
+        guidance_scale: 7.5,
+        num_inference_steps: 30
       }
-    );
-
-    return res.status(200).json({
-      image: output[0]
     });
 
-  } catch (error) {
-    console.error("❌ REPLICATE ERROR:", error);
+    // Attendre la génération
+    let result = prediction;
+    while (result.status !== "succeeded" && result.status !== "failed") {
+      await new Promise(r => setTimeout(r, 1500));
+      result = await replicate.predictions.get(result.id);
+    }
+
+    if (result.status === "failed") {
+      throw new Error("Generation failed");
+    }
+
+    return res.status(200).json({
+      image: result.output[0]
+    });
+
+  } catch (err) {
+    console.error("REPLICATE ERROR:", err);
     return res.status(500).json({
       error: "Image generation failed",
-      details: error.message
+      detail: err.message
     });
   }
 }
