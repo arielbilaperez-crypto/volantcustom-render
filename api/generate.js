@@ -15,12 +15,14 @@ export default async function handler(req, res) {
   }
 
   try {
-    // ✅ TEST SIMPLE POUR VALIDER LE PIPELINE
-    return res.status(200).json({
-      image: "https://placehold.co/900x900?text=VCB+Preview+OK"
+    const image = await openai.images.generate({
+      model: "gpt-image-1",
+      prompt,
+      size: "1024x1024"
     });
-  } catch (error) {
-    console.error("Server error:", error);
-    return res.status(500).json({ error: "Server error" });
+
+    res.status(200).json({ image: image.data[0].url });
+  } catch (e) {
+    res.status(500).json({ error: e.message });
   }
 }
