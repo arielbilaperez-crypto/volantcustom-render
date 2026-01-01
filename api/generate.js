@@ -12,11 +12,26 @@ const replicate = new Replicate({
 
 export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Origin", "*");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  if (req.method === "OPTIONS") return res.status(200).end();
-  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+  // ✅ PRE-FLIGHT CORS
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
+  // ✅ AUTORISER GET POUR TEST / STATUS
+  if (req.method === "GET") {
+    return res.status(200).json({
+      status: "API ready",
+      message: "Use POST to generate image"
+    });
+  }
+
+  // ❌ Bloquer le reste
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
   try {
     const { options } = req.body;
@@ -25,7 +40,6 @@ export default async function handler(req, res) {
 Ultra realistic studio photo of a premium custom steering wheel.
 Compatible with BMW / VW vehicles.
 Clean white background.
-High-end product photography.
 
 Configuration:
 ${Object.entries(options || {})
@@ -42,7 +56,6 @@ Add subtle watermark text: "VOLANTCUSTOM.BE"
           prompt,
           aspect_ratio: "1:1",
           safety_filter_level: "block_only_high",
-          negative_prompt: "low quality, blurry, watermark, text, logo",
         }
       }
     );
