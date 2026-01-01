@@ -22,52 +22,40 @@ export default async function handler(req, res) {
     const { options } = req.body;
 
     const prompt = `
-Ultra realistic studio photo of a custom steering wheel.
-BMW / VW compatible.
-High-end automotive photography.
+Ultra realistic studio photo of a premium custom steering wheel.
+Compatible with BMW / VW vehicles.
 Clean white background.
+High-end product photography.
 
-Customization:
+Configuration:
 ${Object.entries(options || {})
   .map(([k, v]) => `- ${k}: ${v}`)
   .join("\n")}
 
-Add a subtle watermark: VOLANTCUSTOM.BE
+Add subtle watermark text: "VOLANTCUSTOM.BE"
 `;
 
-    // 🔥 OFFICIAL SDXL MODEL (WORKING)
-    const prediction = await replicate.predictions.create({
-      version: "stability-ai/sdxl",
-      input: {
-        prompt,
-        width: 1024,
-        height: 1024,
-        num_outputs: 1,
-        guidance_scale: 7.5,
-        num_inference_steps: 30
+    const output = await replicate.run(
+      "google/imagen-3",
+      {
+        input: {
+          prompt,
+          aspect_ratio: "1:1",
+          safety_filter_level: "block_only_high",
+          negative_prompt: "low quality, blurry, watermark, text, logo",
+        }
       }
-    });
-
-    // Attendre la génération
-    let result = prediction;
-    while (result.status !== "succeeded" && result.status !== "failed") {
-      await new Promise(r => setTimeout(r, 1500));
-      result = await replicate.predictions.get(result.id);
-    }
-
-    if (result.status === "failed") {
-      throw new Error("Generation failed");
-    }
+    );
 
     return res.status(200).json({
-      image: result.output[0]
+      image: output[0]
     });
 
-  } catch (err) {
-    console.error("REPLICATE ERROR:", err);
+  } catch (error) {
+    console.error("❌ REPLICATE ERROR:", error);
     return res.status(500).json({
       error: "Image generation failed",
-      detail: err.message
+      details: error.message
     });
   }
 }
