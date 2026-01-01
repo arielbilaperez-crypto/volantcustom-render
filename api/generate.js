@@ -49,36 +49,34 @@ ${Object.entries(options || {})
 Add subtle watermark text: "VOLANTCUSTOM.BE"
 `;
 
-    const output = await replicate.run(
-      "google/imagen-3",
-      {
-        input: {
-          prompt,
-          aspect_ratio: "1:1",
-          safety_filter_level: "block_only_high",
-        }
-      }
-    );
+const result = await replicate.run(
+  "google/imagen-3",
+  {
+    input: {
+      prompt,
+      aspect_ratio: "1:1",
+      safety_filter_level: "block_only_high",
+    }
+  }
+);
 
-// Récupération propre de l'URL image
+// 🔍 Extraction robuste de l'URL
 let imageUrl = null;
 
-if (Array.isArray(output)) {
-  if (typeof output[0] === "string") {
-    imageUrl = output[0];
-  } else if (output[0]?.url) {
-    imageUrl = output[0].url;
-  }
+if (Array.isArray(result)) {
+  imageUrl = result[0];
+} else if (result?.output && Array.isArray(result.output)) {
+  imageUrl = result.output[0];
+} else if (typeof result === "string") {
+  imageUrl = result;
 }
 
 if (!imageUrl) {
-  console.error("Image non trouvée dans la réponse:", output);
+  console.error("❌ Aucune image trouvée :", result);
   return res.status(500).json({
     error: "Image generation failed",
-    raw: output
+    raw: result
   });
 }
 
-return res.status(200).json({
-  image: imageUrl
-});
+return res.status(200).json({ image: imageUrl });
