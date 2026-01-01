@@ -1,11 +1,57 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <title>Volant Custom – AI Preview</title>
+  <meta charset="UTF-8" />
+  <title>Volant Custom - Générateur IA</title>
+  <style>
+    body {
+      background: #0f0f0f;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+
+    button {
+      background: #ffb300;
+      border: none;
+      padding: 15px 25px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 6px;
+      margin-top: 20px;
+    }
+
+    img {
+      margin-top: 30px;
+      max-width: 90%;
+      border-radius: 12px;
+      display: none;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Volant Custom – IA Rendering</h1>
-  <p>Le générateur arrive bientôt.</p>
+
+  <h1>Volant Custom – Aperçu IA</h1>
+  <p>Clique pour générer un rendu du volant</p>
+
+  <button onclick="generateImage()">Générer le rendu</button>
+
+  <img id="result" />
+
+  <script>
+    async function generateImage() {
+      const img = document.getElementById("result");
+      img.style.display = "block";
+      img.src = "https://placehold.co/800x800?text=Rendu+en+cours...";
+      
+      // Ici plus tard on branchera l'IA
+      setTimeout(() => {
+        img.src = "https://placehold.co/800x800/000000/FFFFFF?text=Volant+Custom+Preview";
+      }, 2000);
+    }
+  </script>
+
 </body>
 </html>
