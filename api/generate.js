@@ -60,15 +60,25 @@ Add subtle watermark text: "VOLANTCUSTOM.BE"
       }
     );
 
-    return res.status(200).json({
-      image: output[0]
-    });
+// Récupération propre de l'URL image
+let imageUrl = null;
 
-  } catch (error) {
-    console.error(" REPLICATE ERROR:", error);
-    return res.status(500).json({
-      error: "Image generation failed",
-      details: error.message
-    });
-  }
+if (Array.isArray(output)) {
+  if (typeof output[0] === "string") {
+    imageUrl = output[0];
+  } else if (output[0]?.url) {
+    imageUrl = output[0].url;
+  }
 }
+
+if (!imageUrl) {
+  console.error("Image non trouvée dans la réponse:", output);
+  return res.status(500).json({
+    error: "Image generation failed",
+    raw: output
+  });
+}
+
+return res.status(200).json({
+  image: imageUrl
+});
