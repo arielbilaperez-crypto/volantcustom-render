@@ -24,12 +24,6 @@ Clean white studio background.
 Soft professional lighting.
 Photorealistic 3D render.
 
-Customization:
-- Material: ${options.material || "Alcantara"}
-- Stitching color: ${options.stitching || "black"}
-- Carbon fiber: ${options.carbon || "no"}
-- Shape: ${options.shape || "sport flat bottom"}
-
 Add a subtle watermark text "VOLANTCUSTOM.BE" in the lower area.
 No car interior, no hands, only the steering wheel.
 `;
