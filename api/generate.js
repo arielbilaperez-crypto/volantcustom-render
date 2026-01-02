@@ -53,7 +53,8 @@ Add subtle watermark text in the background : "VOLANTCUSTOM.BE"
 `;
 
     const result = await replicate.run(
-      "stability-ai/sdxl",
+      "stability-ai/stable-diffusion-xl-img2img:8c70e3b8844508f4dcdf2a61afb64e2f89d7d2d1dbe72964e48f2778f9c74b70
+",
       {
         input: {
           prompt,
