@@ -67,7 +67,7 @@ if (!imageUrl || !imageUrl.startsWith("http")) {
   console.error("❌ Image invalide retournée:", result);
   return res.status(500).json({ error: "Invalid image output" });
 }
-
+console.log("FINAL IMAGE URL:", imageUrl);
 return res.status(200).json({
   image: imageUrl
 });
