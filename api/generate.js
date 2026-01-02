@@ -22,32 +22,28 @@ export default async function handler(req, res) {
   try {
     const { options } = req.body;
 
-    // 👉 IMAGE DE RÉFÉRENCE (OBLIGATOIRE)
     const baseImage =
       "https://volantcustom.be/cdn/shop/files/Capture_d_ecran_2025-04-11_a_18.09.55.png";
 
     const prompt = `
-Ultra realistic product photo of a custom steering wheel.
-Use the provided image as the base reference.
-Do NOT change the shape or geometry.
-Only change materials and colors.
+High quality studio photograph of a premium custom steering wheel.
+Use the provided image as base reference.
+Do not change the shape, only materials and colors.
 
 Requested configuration:
 ${Object.entries(options || {})
   .map(([k, v]) => `- ${k}: ${v}`)
   .join("\n")}
-
-Studio lighting, sharp focus, high detail.
 `;
 
     const output = await replicate.run(
-      "stability-ai/sdxl",
+      "stability-ai/stable-diffusion-xl-base-1.0",
       {
         input: {
           image: baseImage,
           prompt,
+          strength: 0.4,
           guidance_scale: 7,
-          num_outputs: 1,
         },
       }
     );
@@ -62,7 +58,10 @@ Studio lighting, sharp focus, high detail.
     return res.status(200).json({ image: imageUrl });
 
   } catch (err) {
-    console.error("❌ ERROR:", err);
-    return res.status(500).json({ error: "Generation failed", details: err.message });
+    console.error("❌ Replicate error:", err);
+    return res.status(500).json({
+      error: "Image generation failed",
+      details: err.message,
+    });
   }
 }
