@@ -15,8 +15,12 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  if (req.method === "OPTIONS") return res.status(200).end();
+  // Preflight
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
 
+  // Health check
   if (req.method === "GET") {
     return res.status(200).json({ status: "API ready" });
   }
@@ -30,7 +34,7 @@ export default async function handler(req, res) {
 
     const prompt = `
 Ultra realistic studio photo of a premium custom steering wheel.
-Compatible with BMW / VW / Audi / Mercedes vehicles.
+Compatible with BMW / VW / Audi vehicles.
 Clean white background.
 
 Configuration:
@@ -42,33 +46,39 @@ Add subtle watermark text: "VOLANTCUSTOM.BE"
 `;
 
     const result = await replicate.run(
-  "google/imagen-3",
-  {
-    input: {
-      prompt,
-      aspect_ratio: "1:1",
-      safety_filter_level: "block_only_high",
+      "google/imagen-3",
+      {
+        input: {
+          prompt,
+          aspect_ratio: "1:1",
+          safety_filter_level: "block_only_high"
+        }
+      }
+    );
+
+    // ✅ NORMALISATION DU RÉSULTAT
+    let imageUrl = null;
+
+    if (typeof result === "string") {
+      imageUrl = result;
+    } else if (Array.isArray(result)) {
+      imageUrl = result[0];
+    } else if (result?.output?.[0]) {
+      imageUrl = result.output[0];
     }
+
+    if (!imageUrl || !imageUrl.startsWith("http")) {
+      console.error("❌ Invalid image result:", result);
+      return res.status(500).json({ error: "Invalid image generated" });
+    }
+
+    return res.status(200).json({ image: imageUrl });
+
+  } catch (err) {
+    console.error("❌ REPLICATE ERROR:", err);
+    return res.status(500).json({
+      error: "Image generation failed",
+      details: err.message
+    });
   }
-);
-
-// 🔥 EXTRACTION ROBUSTE DE L’URL
-let imageUrl = null;
-
-if (typeof result === "string") {
-  imageUrl = result;
-} else if (Array.isArray(result)) {
-  imageUrl = typeof result[0] === "string" ? result[0] : result[0]?.url;
-} else if (typeof result === "object") {
-  imageUrl = result.url || result.output?.[0];
 }
-
-if (!imageUrl || !imageUrl.startsWith("http")) {
-  console.error("❌ Image invalide retournée:", result);
-  return res.status(500).json({ error: "Invalid image output" });
-}
-console.log("FINAL IMAGE URL:", imageUrl);
-return res.status(200).json({
-  image: imageUrl
-});
-
