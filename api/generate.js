@@ -30,7 +30,7 @@ export default async function handler(req, res) {
 
     // ⚠️ METS ICI UNE IMAGE RÉELLE DE TON VOLANT (URL PUBLIQUE)
     const baseImage =
-      "https://volantcustom.be/cdn/shop/files/Capture_d_ecran_2025-04-11_a_18.09.55.png?v=1766946287&width=1346";
+      "https://volantcustom.be/cdn/shop/files/Capture_d_ecran_2025-04-11_a_18.09.55.png";
 
     const prompt = `
 Ultra realistic product photo of a premium custom steering wheel.
