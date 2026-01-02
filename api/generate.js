@@ -15,53 +15,70 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  if (req.method === "OPTIONS") return res.status(200).end();
-  if (req.method === "GET") return res.status(200).json({ status: "API ready" });
-  if (req.method !== "POST") return res.status(405).json({ error: "Method not allowed" });
+  // Preflight
+  if (req.method === "OPTIONS") {
+    return res.status(200).end();
+  }
+
+  // Health check
+  if (req.method === "GET") {
+    return res.status(200).json({ status: "API ready" });
+  }
+
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method not allowed" });
+  }
 
   try {
     const { options } = req.body;
 
-    const baseImage =
-      "https://volantcustom.be/cdn/shop/files/Capture_d_ecran_2025-04-11_a_18.09.55.png";
-
     const prompt = `
-High quality studio photograph of a premium custom steering wheel.
-Use the provided image as base reference.
-Do not change the shape, only materials and colors.
+Ultra realistic studio photo of a premium custom steering wheel.
+Compatible with BMW / VW / Audi vehicles.
+Clean white background.
 
-Requested configuration:
+Configuration:
 ${Object.entries(options || {})
   .map(([k, v]) => `- ${k}: ${v}`)
   .join("\n")}
+
+Add subtle watermark text in the background : "VOLANTCUSTOM.BE"
 `;
 
-    const output = await replicate.run(
-      "stability-ai/stable-diffusion-xl-base-1.0",
+    const result = await replicate.run(
+      "google/imagen-3",
       {
         input: {
-          image: baseImage,
           prompt,
-          strength: 0.4,
-          guidance_scale: 7,
-        },
+          aspect_ratio: "1:1",
+          safety_filter_level: "block_only_high"
+        }
       }
     );
 
-    const imageUrl =
-      Array.isArray(output) ? output[0] : output?.output?.[0];
+    // ✅ NORMALISATION DU RÉSULTAT
+    let imageUrl = null;
 
-    if (!imageUrl) {
-      return res.status(500).json({ error: "No image generated" });
+    if (typeof result === "string") {
+      imageUrl = result;
+    } else if (Array.isArray(result)) {
+      imageUrl = result[0];
+    } else if (result?.output?.[0]) {
+      imageUrl = result.output[0];
+    }
+
+    if (!imageUrl || !imageUrl.startsWith("http")) {
+      console.error("❌ Invalid image result:", result);
+      return res.status(500).json({ error: "Invalid image generated" });
     }
 
     return res.status(200).json({ image: imageUrl });
 
   } catch (err) {
-    console.error("❌ Replicate error:", err);
+    console.error("❌ REPLICATE ERROR:", err);
     return res.status(500).json({
       error: "Image generation failed",
-      details: err.message,
+      details: err.message
     });
   }
 }
