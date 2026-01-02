@@ -32,7 +32,7 @@ export default async function handler(req, res) {
 
     // ⚠️ IMAGE DE RÉFÉRENCE (OBLIGATOIRE)
     const baseImage =
-      "https://volantcustom.be/cdn/shop/files/Capture_d_ecran_2025-04-11_a_18.09.55.png";
+      "https://volantcustom.be/cdn/shop/files/Capture_d_ecran_2025-04-11_a_18.09.55.png?v=1766946287&width=1346";
 
     const prompt = `
 High-quality studio photograph of a premium car steering wheel.
