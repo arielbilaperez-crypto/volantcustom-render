@@ -43,7 +43,7 @@ IMPORTANT:
 - Include a "VOLANTCUSTOM.BE" watermark in the studio background.
 - Keep original design, steering wheel geometry and layout of the car model listed in OPTIONS DETECTED.
 - Only modify materials, colors, stitching, and finish according to OPTIONS DETECTED.
-- Display a render of the selected or detected car model in the background, next to the generated steering wheel
+- Display an ultra realistic render of the selected or detected car model in the background, next to the generated steering wheel
 
 Configuration:
 ${Object.entries(options || {})
