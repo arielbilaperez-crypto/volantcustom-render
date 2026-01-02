@@ -49,26 +49,36 @@ ${Object.entries(options || {})
 Add subtle watermark text: "VOLANTCUSTOM.BE"
 `;
 
-    const output = await replicate.run(
-      "google/imagen-3",
-      {
-        input: {
-          prompt,
-          aspect_ratio: "1:1",
-          safety_filter_level: "block_only_high",
-        }
-      }
-    );
-
-    return res.status(200).json({
-      image: output[0]
-    });
-
-  } catch (error) {
-    console.error("❌ REPLICATE ERROR:", error);
-    return res.status(500).json({
-      error: "Image generation failed",
-      details: error.message
-    });
+  const result = await replicate.run(
+  "google/imagen-3",
+  {
+    input: {
+      prompt,
+      aspect_ratio: "1:1",
+      safety_filter_level: "block_only_high",
+    }
   }
+);
+
+// 🔍 DEBUG LOG (important)
+console.log("REPLICATE RAW OUTPUT:", JSON.stringify(result, null, 2));
+
+// 🔎 Extraction intelligente de l’image
+let imageUrl = null;
+
+if (Array.isArray(result)) {
+  imageUrl = typeof result[0] === "string" ? result[0] : result[0]?.url;
+} else if (result?.output?.[0]) {
+  imageUrl = result.output[0];
 }
+
+if (!imageUrl) {
+  return res.status(500).json({
+    error: "No image returned by Replicate",
+    raw: result
+  });
+}
+
+return res.status(200).json({
+  image: imageUrl
+});
