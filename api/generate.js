@@ -32,10 +32,17 @@ export default async function handler(req, res) {
   try {
     const { options } = req.body;
 
+    const baseImage =
+      "https://volantcustom.be/cdn/shop/files/Capture_d_ecran_2025-04-11_a_18.09.55.png";
+
     const prompt = `
-Ultra realistic studio photo of a premium custom steering wheel.
-Compatible with BMW / VW / Audi vehicles.
-Clean white background.
+Ultra realistic studio photograph of a BMW F-Series steering wheel.
+
+IMPORTANT:
+- Use the provided image as the exact base model.
+- Do NOT change the shape, buttons, or proportions.
+- Keep original BMW design, steering wheel geometry and layout.
+- Only modify materials, colors, stitching, and finish.
 
 Configuration:
 ${Object.entries(options || {})
