@@ -52,8 +52,8 @@ ${Object.entries(options || {})
 Add subtle watermark text in the background : "VOLANTCUSTOM.BE"
 `;
 
-    const result = await replicate.run(
-      "bytedance/seedream-4",
+      const result = await replicate.run(
+      "google/imagen-3",
       {
         input: {
           prompt,
