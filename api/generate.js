@@ -101,7 +101,6 @@ FINAL OUTPUT:
 - Maximum realism, suitable for premium automotive customization visualization.
 `;
 
-
 Configuration:
 ${Object.entries(options || {})
   .map(([k, v]) => `- ${k}: ${v}`)
