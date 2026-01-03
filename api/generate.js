@@ -33,7 +33,7 @@ export default async function handler(req, res) {
     const { options } = req.body;
 
     const baseImage =
-      "https://volantcustom.be/cdn/shop/files/IMG-5965.png?v=1767469918&width=990";
+      "https://volantcustom.be/cdn/shop/files/IMG-5968.png?v=1767471751&width=990";
 
     const prompt = `
 
