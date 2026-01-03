@@ -36,13 +36,14 @@ export default async function handler(req, res) {
       "https://volantcustom.be/cdn/shop/files/Capture_d_ecran_2025-04-11_a_18.09.55.png";
 
     const prompt = `
-Ultra realistic studio photograph of a BMW F-Series steering wheel.
+Ultra realistic studio photograph of a custom steering wheel.
 
-IMPORTANT:
-- Use the provided image as the exact base model.
-- Do NOT change the shape, buttons, or proportions.
-- Keep original BMW design, steering wheel geometry and layout.
-- Only modify materials, colors, stitching, and finish.
+IMPORTANT: 
+- Use the provided image only as example, same level of texture and realism should be used.
+- Include a "VOLANTCUSTOM.BE" watermark in the studio background.
+- Keep original design, steering wheel geometry and layout of the car model listed in OPTIONS DETECTED.
+- Only modify materials, colors, stitching, and finish according to OPTIONS DETECTED.
+- Display an ultra realistic render of the selected or detected car model in the background, next to the generated steering wheel
 STEERING WHEEL COMPONENT DEFINITIONS (IMPORTANT):
 The steering wheel is composed of the following clearly identified elements.
 Only these elements may be customized.
