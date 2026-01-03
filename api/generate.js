@@ -35,8 +35,7 @@ export default async function handler(req, res) {
     const baseImage =
       "https://volantcustom.be/cdn/shop/files/Capture_d_ecran_2025-04-11_a_18.09.55.png";
 
-    const prompt =
-Ultra-realistic studio photograph of a custom steering wheel.
+    const prompt = `dio photograph of a custom steering wheel.
 
 REFERENCE MODEL:
 - Use the provided BMW F-Series steering wheel image as the exact geometric reference.
