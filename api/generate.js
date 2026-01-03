@@ -38,12 +38,6 @@ export default async function handler(req, res) {
     const prompt = `
 Ultra realistic studio photograph of a custom steering wheel.
 
-IMPORTANT: 
-- Use the provided image only as reference, same level of texture and realism should be used.
-- Include a "VOLANTCUSTOM.BE" watermark in the studio background.
-- Keep original design and steering wheel geometry of the reference image provided.
-- Only modify materials, colors, stitching, and finish according to OPTIONS DETECTED.
-
 Configuration:
 ${Object.entries(options || {})
   .map(([k, v]) => `- ${k}: ${v}`)
