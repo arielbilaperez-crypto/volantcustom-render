@@ -80,7 +80,7 @@ Add subtle watermark text in the background : "VOLANTCUSTOM.BE"
 `;
 
       const result = await replicate.run(
-      "google/nano-banana",
+      "google/imagen-4-ultra",
       {
         input: {
           prompt,
