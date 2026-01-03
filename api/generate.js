@@ -55,7 +55,7 @@ Add subtle watermark text in the background : "VOLANTCUSTOM.BE"
       {
         input: {
           prompt,
-          images: [baseImage],
+          image_input: [baseImage],
           aspect_ratio: "1:1",
           safety_filter_level: "block_only_high"
         }
