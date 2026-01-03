@@ -36,7 +36,6 @@ export default async function handler(req, res) {
       "https://volantcustom.be/cdn/shop/files/IMG-5840.png?v=1766947067&width=1346";
 
     const prompt = `
-Ultra realistic studio photograph of a custom steering wheel.
 
 Configuration:
 ${Object.entries(options || {})
