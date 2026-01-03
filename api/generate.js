@@ -37,6 +37,11 @@ export default async function handler(req, res) {
 
     const prompt = `
 
+IMPORTANT:
+- The provided image is the visual and structural reference.
+- Preserve the exact steering wheel geometry, proportions and layout.
+- Only modify materials, colors, stitching and finishes.
+
 Configuration:
 ${Object.entries(options || {})
   .map(([k, v]) => `- ${k}: ${v}`)
