@@ -36,14 +36,70 @@ export default async function handler(req, res) {
       "https://volantcustom.be/cdn/shop/files/Capture_d_ecran_2025-04-11_a_18.09.55.png";
 
     const prompt = `
-Ultra realistic studio photograph of a custom steering wheel.
+Ultra-realistic studio photograph of a custom steering wheel.
 
-IMPORTANT:
-- Use the provided image only as example, same level of texture and realism should be used.
-- Include a "VOLANTCUSTOM.BE" watermark in the studio background.
-- Keep original design, steering wheel geometry and layout of the car model listed in OPTIONS DETECTED.
-- Only modify materials, colors, stitching, and finish according to OPTIONS DETECTED.
-- Display an ultra realistic render of the selected or detected car model in the background, next to the generated steering wheel
+REFERENCE MODEL:
+- Use the provided BMW F-Series steering wheel image as the exact geometric reference.
+- Do NOT modify the steering wheel shape, proportions, buttons layout, or structure.
+- The reference image defines the exact placement and size of all components.
+
+STEERING WHEEL COMPONENT DEFINITIONS (IMPORTANT):
+The steering wheel is composed of the following clearly identified elements.
+Only these elements may be customized.
+
+1. GRIP (outer circular ring):
+- The full external circular part of the steering wheel.
+- Includes leather or Alcantara surface, stitching color and pattern.
+- Shape, thickness and ergonomics must remain identical to the reference image.
+
+2. CENTRAL AIRBAG COVER:
+- The round central part containing the car logo.
+- Only material, texture or color may be changed.
+- The car logo must remain centered and unchanged in size and position.
+
+3. PADDLE SHIFTERS:
+- The two rear paddles behind the steering wheel.
+- Marked with "+" on the right and "-" on the left.
+- Only material, color or finish may vary.
+
+4. CENTRAL LOWER TRIM (GARNITURE CENTRALE):
+- The V-shaped lower structural trim below the airbag.
+- This part is a glossy carbon fiber element in the reference image.
+- Geometry must remain strictly identical.
+
+5. CENTRAL INSERT:
+- The thin V-shaped insert embedded inside the central lower trim.
+- This is the colored accent piece (blue in the reference image).
+- Only color and finish may change.
+
+6. LOWER LOGO:
+- The logo located at the bottom of the steering wheel.
+- In the reference image, it is "M Performance".
+- Replace or customize this logo according to OPTIONS DETECTED.
+
+CUSTOMIZATION RULES:
+- Keep original BMW F-Series steering wheel geometry at all times.
+- Only modify materials, colors, stitching, textures and finishes.
+- Do not add or remove components.
+- Do not redesign buttons, spokes or layout.
+
+VISUAL STYLE:
+- Ultra-realistic studio lighting.
+- High-detail textures (leather grain, Alcantara fibers, carbon weave).
+- Photorealistic reflections and shadows.
+
+BRANDING:
+- Include a subtle "VOLANTCUSTOM.BE" watermark in the studio background.
+
+BACKGROUND:
+- Display an ultra-realistic render of the selected or detected BMW F-Series car model in the background, next to the steering wheel.
+- Background must remain secondary and not distract from the steering wheel.
+
+FINAL OUTPUT:
+- One centered, front-facing steering wheel.
+- Clean studio composition.
+- Maximum realism, suitable for premium automotive customization visualization.
+`;
 
 Configuration:
 ${Object.entries(options || {})
