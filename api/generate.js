@@ -33,42 +33,16 @@ export default async function handler(req, res) {
     const { options } = req.body;
 
     const baseImage =
-      "https://volantcustom.be/cdn/shop/files/Capture_d_ecran_2025-04-11_a_18.09.55.png";
+      "https://volantcustom.be/cdn/shop/files/IMG-5840.png?v=1766947067&width=1346";
 
     const prompt = `
 Ultra realistic studio photograph of a custom steering wheel.
 
 IMPORTANT: 
-- Use the provided image only as example, same level of texture and realism should be used.
+- Use the provided image only as reference, same level of texture and realism should be used.
 - Include a "VOLANTCUSTOM.BE" watermark in the studio background.
-- Keep original design, steering wheel geometry and layout of the car model listed in OPTIONS DETECTED.
+- Keep original design and steering wheel geometry of the reference image provided.
 - Only modify materials, colors, stitching, and finish according to OPTIONS DETECTED.
-- Display an ultra realistic render of the selected or detected car model in the background, next to the generated steering wheel
-STEERING WHEEL COMPONENT DEFINITIONS (IMPORTANT):
-The steering wheel is composed of the following clearly identified elements.
-Only these elements may be customized.
-GRIP (outer circular ring):
-- The full external circular part of the steering wheel.
-- Includes leather or Alcantara surface, stitching color and pattern.
-- Shape, thickness and ergonomics must remain identical to the reference image.
-CENTRAL AIRBAG COVER:
-- The round central part containing the BMW logo.
-- Only material, texture or color may be changed.
-- The car logo must remain centered and unchanged in size and position.
-PADDLE SHIFTERS:
-- The two rear paddles behind the steering wheel.
-- Marked with "+" on the right and "-" on the left.
-- Only material, color or finish may vary.
-CENTRAL LOWER TRIM (GARNITURE CENTRALE):
-- The V-shaped lower structural trim below the airbag.
-- This part is a glossy carbon fiber element in the reference image.
-CENTRAL INSERT:
-- The thin V-shaped insert embedded inside the central lower trim.
-- This is the colored accent piece (blue in the reference image).
-LOWER LOGO:
-- The logo located at the bottom of the steering wheel.
-- In the reference image, it is "M Performance".
-- Replace or customize this logo according to OPTIONS DETECTED.
 
 Configuration:
 ${Object.entries(options || {})
