@@ -1,5 +1,4 @@
 import Replicate from "replicate";
-import fetch from "node-fetch";
 
 export const config = {
   api: {
