@@ -54,7 +54,7 @@ GRIP (outer circular ring):
 CENTRAL AIRBAG COVER:
 - The round central part containing the BMW logo.
 - Only material, texture or color may be changed.
-- The BMW logo must remain centered and unchanged in size and position.
+- The car logo must remain centered and unchanged in size and position.
 PADDLE SHIFTERS:
 - The two rear paddles behind the steering wheel.
 - Marked with "+" on the right and "-" on the left.
@@ -62,11 +62,9 @@ PADDLE SHIFTERS:
 CENTRAL LOWER TRIM (GARNITURE CENTRALE):
 - The V-shaped lower structural trim below the airbag.
 - This part is a glossy carbon fiber element in the reference image.
-- Geometry must remain strictly identical.
 CENTRAL INSERT:
 - The thin V-shaped insert embedded inside the central lower trim.
 - This is the colored accent piece (blue in the reference image).
-- Only color and finish may change.
 LOWER LOGO:
 - The logo located at the bottom of the steering wheel.
 - In the reference image, it is "M Performance".
