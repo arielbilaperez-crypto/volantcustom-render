@@ -36,13 +36,13 @@ export default async function handler(req, res) {
       "https://volantcustom.be/cdn/shop/files/Capture_d_ecran_2025-04-11_a_18.09.55.png";
 
     const prompt = `
-Ultra-realistic studio photograph of a custom BMW F-Series steering wheel.
+Ultra realistic studio photograph of a BMW F-Series steering wheel.
 
-REFERENCE MODEL:
-- Use the provided BMW F-Series steering wheel image as the exact geometric reference.
-- Do NOT modify the steering wheel shape, proportions, buttons layout, or structure.
-- The reference image defines the exact placement and size of all components.
-
+IMPORTANT:
+- Use the provided image as the exact base model.
+- Do NOT change the shape, buttons, or proportions.
+- Keep original BMW design, steering wheel geometry and layout.
+- Only modify materials, colors, stitching, and finish.
 STEERING WHEEL COMPONENT DEFINITIONS (IMPORTANT):
 The steering wheel is composed of the following clearly identified elements.
 Only these elements may be customized.
@@ -76,30 +76,6 @@ Only these elements may be customized.
 - The logo located at the bottom of the steering wheel.
 - In the reference image, it is "M Performance".
 - Replace or customize this logo according to OPTIONS DETECTED.
-
-CUSTOMIZATION RULES:
-- Keep original BMW F-Series steering wheel geometry at all times.
-- Only modify materials, colors, stitching, textures and finishes.
-- Do not add or remove components.
-- Do not redesign buttons, spokes or layout.
-
-VISUAL STYLE:
-- Ultra-realistic studio lighting.
-- High-detail textures (leather grain, Alcantara fibers, carbon weave).
-- Photorealistic reflections and shadows.
-
-BRANDING:
-- Include a subtle "VOLANTCUSTOM.BE" watermark in the studio background.
-
-BACKGROUND:
-- Display an ultra-realistic render of the selected or detected BMW F-Series car model in the background, next to the steering wheel.
-- Background must remain secondary and not distract from the steering wheel.
-
-FINAL OUTPUT:
-- One centered, front-facing steering wheel.
-- Clean studio composition.
-- Maximum realism, suitable for premium automotive customization visualization.
-`;
 
 Configuration:
 ${Object.entries(options || {})
