@@ -65,7 +65,7 @@ Add a subtle "VOLANTCUSTOM.BE" watermark in the background.
 
     // 🚀 appel Replicate avec format Gemini natif
     const result = await replicate.run(
-      "google/nano-banana",
+      "gemini-2.5-flash-image",
       {
         input: {
           contents: [
