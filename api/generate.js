@@ -40,7 +40,6 @@ export default async function handler(req, res) {
       vehiclePrompt =
         "Volkswagen Golf 7 GTI / R steering wheel, modern sporty design";
     }
-
     if (vehicle === "bmw_f") {
       baseImage =
         "https://volantcustom.be/cdn/shop/files/Capture_d_ecran_2025-04-11_a_18.09.55.png?v=1766946287&width=990";
