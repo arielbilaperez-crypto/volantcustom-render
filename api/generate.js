@@ -34,6 +34,12 @@ export default async function handler(req, res) {
       vehiclePrompt =
         "Volkswagen Golf 8 GTI / R steering wheel, modern sporty design";
     }
+    if (vehicle === "golf7") {
+      baseImage =
+        "https://volantcustom.be/cdn/shop/files/golf7_vcbcover.webp?v=1766946439&width=990";
+      vehiclePrompt =
+        "Volkswagen Golf 7 GTI / R steering wheel, modern sporty design";
+    }
 
     if (vehicle === "bmw_f") {
       baseImage =
