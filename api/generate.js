@@ -41,6 +41,12 @@ export default async function handler(req, res) {
       vehiclePrompt =
         "BMW F-Series M Sport steering wheel (F20, F30, F32), OEM sporty design";
     }
+    if (vehicle === "bmw_g") {
+  baseImage =
+    "https://volantcustom.be/cdn/shop/files/bmwgseries_vcbcover.jpg?v=1766945763&width=990";
+  vehiclePrompt =
+    "BMW G-Series M Sport steering wheel (G20, G30, G42), modern OEM design";
+    }
 
     const prompt = `
 Ultra realistic studio photograph of a ${vehiclePrompt}.
