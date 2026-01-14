@@ -15,58 +15,68 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
-  // Preflight
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
-
-  // Health check
-  if (req.method === "GET") {
-    return res.status(200).json({ status: "API ready" });
-  }
-
+  if (req.method === "OPTIONS") return res.status(200).end();
+  if (req.method === "GET") return res.status(200).json({ status: "API ready" });
   if (req.method !== "POST") {
     return res.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-    const { options } = req.body;
+    const { options, vehicle } = req.body;
 
-    const baseImage =
-      "https://volantcustom.be/cdn/shop/files/IMG-5968.png?v=1767471751&width=990";
+    // 🔹 Choix image de référence selon le configurateur
+    let baseImage = null;
+    let vehiclePrompt = "";
+
+    if (vehicle === "golf8") {
+      baseImage =
+        "https://volantcustom.be/cdn/shop/files/IMG-5968.png?v=1767471751&width=990";
+      vehiclePrompt =
+        "Volkswagen Golf 8 GTI / R steering wheel, modern sporty design";
+    }
+
+    if (vehicle === "bmw_f") {
+      baseImage =
+        "https://volantcustom.be/cdn/shop/files/Capture_d_ecran_2025-04-11_a_18.09.55.png?v=1766946287&width=990";
+      vehiclePrompt =
+        "BMW F-Series M Sport steering wheel (F20, F30, F32), OEM sporty design";
+    }
 
     const prompt = `
+Ultra realistic studio photograph of a ${vehiclePrompt}.
+
+IMPORTANT:
+- Use the provided image as visual reference
+- Keep original steering wheel shape and button layout
+- No fantasy or concept design
+- Only adapt materials, colors, stitching and finishes
 
 Configuration:
 ${Object.entries(options || {})
   .map(([k, v]) => `- ${k}: ${v}`)
   .join("\n")}
 
-Add subtle watermark text in the background : "VOLANTCUSTOM.BE"
+White studio background.
+Professional automotive product photography.
+Subtle "VOLANTCUSTOM.BE" watermark in the background.
 `;
 
-      const result = await replicate.run(
+    const result = await replicate.run(
       "google/nano-banana",
       {
         input: {
           prompt,
-          image_input: [baseImage],
+          image_input: baseImage ? [baseImage] : undefined,
           aspect_ratio: "1:1",
           safety_filter_level: "block_only_high"
         }
       }
     );
 
-    // ✅ NORMALISATION DU RÉSULTAT
     let imageUrl = null;
-
-    if (typeof result === "string") {
-      imageUrl = result;
-    } else if (Array.isArray(result)) {
-      imageUrl = result[0];
-    } else if (result?.output?.[0]) {
-      imageUrl = result.output[0];
-    }
+    if (typeof result === "string") imageUrl = result;
+    else if (Array.isArray(result)) imageUrl = result[0];
+    else if (result?.output?.[0]) imageUrl = result.output[0];
 
     if (!imageUrl || !imageUrl.startsWith("http")) {
       console.error("❌ Invalid image result:", result);
