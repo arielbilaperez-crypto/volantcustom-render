@@ -64,6 +64,12 @@ export default async function handler(req, res) {
   vehiclePrompt =
     "Audi 8V2 (A3/A4/A5/S3/S5/RS3) steering wheel, modern OEM design";
     }
+    if (vehicle === "audi_8y") {
+  baseImage =
+    "https://volantcustom.be/cdn/shop/files/audiB9.5_vcbcover.jpg?v=1766943905&width=990";
+  vehiclePrompt =
+    "Audi 8Y B9.5 (A3/A4/A5/RS3 8Y) steering wheel, modern OEM design";
+    }
     if (vehicle === "audi_rs6") {
   baseImage =
     "https://volantcustom.be/cdn/shop/files/audirs6c8_vcbcover.webp?v=1766947523&width=990";
