@@ -52,6 +52,48 @@ export default async function handler(req, res) {
   vehiclePrompt =
     "BMW G-Series M Sport steering wheel (G20, G30, G42), modern OEM design";
     }
+    if (vehicle === "audi_8v1") {
+  baseImage =
+    "https://volantcustom.be/cdn/shop/files/bmwgseries_vcbcover.jpg?v=1766945763&width=990";
+  vehiclePrompt =
+    "Audi 8V1 (A3/S3/RS3) steering wheel, modern OEM design";
+    }
+    if (vehicle === "audi_8v2") {
+  baseImage =
+    "https://volantcustom.be/cdn/shop/files/bmwgseries_vcbcover.jpg?v=1766945763&width=990";
+  vehiclePrompt =
+    "Audi 8V2 (A3/A4/A5/S3/S5/RS3) steering wheel, modern OEM design";
+    }
+    if (vehicle === "audi_rs6") {
+  baseImage =
+    "https://volantcustom.be/cdn/shop/files/bmwgseries_vcbcover.jpg?v=1766945763&width=990";
+  vehiclePrompt =
+    "Audi (RS6/A7/RS7 C8) steering wheel, modern OEM design";
+    }
+    if (vehicle === "audi_r8") {
+  baseImage =
+    "https://volantcustom.be/cdn/shop/files/bmwgseries_vcbcover.jpg?v=1766945763&width=990";
+  vehiclePrompt =
+    "Audi 8V2 (TT/TTRS/R8) steering wheel, modern OEM design";
+    }
+    if (vehicle === "mb_sport") {
+  baseImage =
+    "https://volantcustom.be/cdn/shop/files/bmwgseries_vcbcover.jpg?v=1766945763&width=990";
+  vehiclePrompt =
+    "Mercedes AMG Performance 2010-2014 (C63 W204/ E63 W212) steering wheel, modern OEM design";
+    }
+    if (vehicle === "mb_super") {
+  baseImage =
+    "https://volantcustom.be/cdn/shop/files/bmwgseries_vcbcover.jpg?v=1766945763&width=990";
+  vehiclePrompt =
+    "Mercedes AMG Sport 2014-2019 (C/E/SL/CL/CLS/GLC/AMG GT) steering wheel, modern OEM design";
+    }
+    if (vehicle === "mb_ultra") {
+  baseImage =
+    "https://volantcustom.be/cdn/shop/files/bmwgseries_vcbcover.jpg?v=1766945763&width=990";
+  vehiclePrompt =
+    "Mercedes AMG Sport 2020-2024 (W206, W213) steering wheel, modern OEM design";
+    }
 
     const prompt = `
 Ultra realistic studio photograph of a ${vehiclePrompt}.
