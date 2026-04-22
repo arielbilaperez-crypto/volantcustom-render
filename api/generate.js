@@ -52,6 +52,12 @@ export default async function handler(req, res) {
   vehiclePrompt =
     "BMW G-Series M Sport steering wheel (G20, G30, G42), modern OEM design";
     }
+    if (vehicle === "bmw_g_lci") {
+  baseImage =
+    "https://volantcustom.be/cdn/shop/files/IMG-6293.jpg?v=1776887912&width=990";
+  vehiclePrompt =
+    "BMW G-Series Facelift 2025 M Sport steering wheel (G20 LCI, G80 LCI), modern OEM design";
+    }
     if (vehicle === "audi_8v1") {
   baseImage =
     "https://volantcustom.be/cdn/shop/files/audi_oldgen_vcbcover.webp?v=1766944712&width=990";
