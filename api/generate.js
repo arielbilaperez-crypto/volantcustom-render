@@ -29,22 +29,22 @@ export default async function handler(req, res) {
     let vehiclePrompt = "";
 
     if (vehicle === "golf8") {
-      baseImage =
-        "https://volantcustom.be/cdn/shop/files/IMG-5968.png?v=1767471751&width=990";
-      vehiclePrompt =
-        "Volkswagen Golf 8 GTI / R steering wheel, modern sporty design";
+  baseImage =
+    "https://volantcustom.be/cdn/shop/files/IMG-5968.png?v=1767471751&width=990";
+  vehiclePrompt =
+    "Volkswagen Golf 8 GTI / R steering wheel, modern sporty design";
     }
     if (vehicle === "golf7") {
-      baseImage =
-        "https://volantcustom.be/cdn/shop/files/golf7_vcbcover.jpg?v=1768431701&width=990";
-      vehiclePrompt =
-        "Volkswagen Golf 7 GTI / R steering wheel, modern sporty design";
+  baseImage =
+    "https://volantcustom.be/cdn/shop/files/golf7_vcbcover.jpg?v=1768431701&width=990";
+  vehiclePrompt =
+    "Volkswagen Golf 7 GTI / R steering wheel, modern sporty design";
     }
     if (vehicle === "bmw_f") {
-      baseImage =
-        "https://volantcustom.be/cdn/shop/files/Capture_d_ecran_2025-04-11_a_18.09.55.png?v=1766946287&width=990";
-      vehiclePrompt =
-        "BMW F-Series M Sport steering wheel (F20, F30, F32), OEM sporty design";
+  baseImage =
+    "https://volantcustom.be/cdn/shop/files/Capture_d_ecran_2025-04-11_a_18.09.55.png?v=1766946287&width=990";
+  vehiclePrompt =
+    "BMW F-Series M Sport steering wheel (F20, F30, F32), OEM sporty design";
     }
     if (vehicle === "bmw_g") {
   baseImage =
@@ -54,7 +54,7 @@ export default async function handler(req, res) {
     }
     if (vehicle === "bmw_g_lci") {
   baseImage =
-    "https://volantcustom.be/cdn/shop/files/IMG-6293.jpg?v=1776887912&width=990";
+    "https://volantcustom.be/cdn/shop/files/FullSizeRender_adf856b6-a07c-42f5-a017-fe24d2a977c5.jpg?v=1780688929&width=990";
   vehiclePrompt =
     "BMW G-Series Facelift 2025 M Sport steering wheel (G20 LCI, G80 LCI), modern OEM design";
     }
