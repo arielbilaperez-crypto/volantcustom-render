@@ -133,11 +133,19 @@ Subtle "VOLANTCUSTOM.BE" watermark in the background.
           prompt,
           image_input: baseImage ? [baseImage] : undefined,
           aspect_ratio: "1:1",
-          safety_filter_level: "block_only_high"
+          output_format: "jpg"
         }
       }
     );
 
+    console.log(
+      "RESULT =",
+      JSON.stringify(result, null, 2)
+);
+
+return res.status(200).json({
+  debug: result
+});
     let imageUrl = null;
     if (typeof result === "string") imageUrl = result;
     else if (Array.isArray(result)) imageUrl = result[0];
