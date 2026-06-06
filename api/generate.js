@@ -133,8 +133,7 @@ Subtle "VOLANTCUSTOM.BE" watermark in the background.
           prompt,
           image_input: baseImage ? [baseImage] : undefined,
           aspect_ratio: "1:1",
-          output_format: "png",
-          safety_filter_level: "block_only_high"
+          output_format: "png"
         }
       }
     );
