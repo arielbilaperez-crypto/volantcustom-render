@@ -127,14 +127,13 @@ Subtle "VOLANTCUSTOM.BE" watermark in the background.
 `;
 
     const result = await replicate.run(
-      "google/nano-banana-pro",
+      "google/nano-banana",
       {
         input: {
           prompt,
           image_input: baseImage ? [baseImage] : undefined,
           aspect_ratio: "1:1",
           output_format: png
-          resolution: 1K
           safety_filter_level: "block_only_high"
         }
       }
