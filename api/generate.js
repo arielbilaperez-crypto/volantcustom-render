@@ -42,7 +42,7 @@ export default async function handler(req, res) {
     }
     if (vehicle === "bmw_f") {
       baseImage =
-        "https://repository-images.githubusercontent.com/14303048/52791ac8-85d7-425b-aa5a-3e55dc8bf1d3";
+        "https://res.cloudinary.com/dssr4em6b/image/upload/Capture_d_ecran_2025-04-11_a_18.09.55_tifqye";
       vehiclePrompt =
         "BMW F-Series M Sport steering wheel (F20, F30, F32), OEM sporty design";
     }
