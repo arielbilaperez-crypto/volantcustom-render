@@ -54,7 +54,7 @@ export default async function handler(req, res) {
     }
     if (vehicle === "bmw_g_lci") {
   baseImage =
-    "https://volantcustom.be/cdn/shop/files/IMG-6293.jpg?v=1776887912&width=990";
+    "https://res.cloudinary.com/dssr4em6b/image/upload/v1780792475/FullSizeRender_adf856b6-a07c-42f5-a017-fe24d2a977c5_rj167p.webp";
   vehiclePrompt =
     "BMW G-Series Facelift 2025 M Sport steering wheel (G20 LCI, G80 LCI), modern OEM design";
     }
