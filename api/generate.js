@@ -42,7 +42,7 @@ export default async function handler(req, res) {
     }
     if (vehicle === "bmw_f") {
       baseImage =
-        "https://volantcustom.be/cdn/shop/files/Capture_d_ecran_2025-04-11_a_18.09.55.png?v=1766946287&width=990";
+        "https://volantcustom.be/cdn/shop/files/82137002-D01C-491D-9BAE-8E055CD2F9AA.png?v=1767144390&width=990";
       vehiclePrompt =
         "BMW F-Series M Sport steering wheel (F20, F30, F32), OEM sporty design";
     }
